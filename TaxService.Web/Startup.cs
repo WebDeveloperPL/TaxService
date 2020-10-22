@@ -34,9 +34,10 @@ namespace TaxService.Web
             
             services.AddSingleton(services);
             RegisterScoped(services);
+            services.AddSwaggerGen();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, TaxDbContext context)
         {
             if (env.IsDevelopment())
             {
@@ -53,11 +54,20 @@ namespace TaxService.Web
             {
                 endpoints.MapControllers();
             });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
+            context.Database.Migrate();
         }
 
 
         public void RegisterScoped(IServiceCollection services)
         {
+            
             var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
 
             loadedAssemblies
