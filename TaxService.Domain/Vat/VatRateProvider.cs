@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TaxService.Domain.Vat
+﻿namespace TaxService.Domain.Vat
 {
+    using System;
     using Core;
-    using Data;
     using Database;
+    using Exceptions;
 
     public interface IVatRateProvider
     {
@@ -33,8 +30,12 @@ namespace TaxService.Domain.Vat
                 if (vat == null)
                 {
                     vat = _vatRateRepository.GetDefault(db);
+                    if (vat == null)
+                    {
+                        throw new VatRateNotAvailableException($"Vat rate not available for {groupName}");
+                    }
                 }
-
+                
                 return vat.Rate;
             }
         }

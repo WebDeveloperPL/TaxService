@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace TaxService.Web.Controllers
 {
     using Domain.Calcaulator;
+    using Domain.Vat.Exceptions;
     using Model.Api.Calcualte;
 
     [ApiController]
@@ -23,10 +24,21 @@ namespace TaxService.Web.Controllers
 
         [HttpPost]
         [Route("api/calculator/calculate")]
-        public List<CalculatedItemWithVatDto> Calculate(List<CalculatePostModel> model)
+        public IActionResult Calculate(List<CalculatePostModel> model)
         {
-            var result = _calculator.CalculateVat(model);
-            return result;
+            try
+            {
+                var result = _calculator.CalculateVat(model);
+                return Ok(result);
+            }
+            catch (VatRateNotAvailableException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (Exception e)
+            {
+                return new StatusCodeResult(500);
+            }
         }
 
         

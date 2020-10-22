@@ -24,14 +24,15 @@
 
         public List<CalculatedItemWithVatDto> CalculateVat(List<CalculatePostModel> model)
         {
-            var output = new List<CalculatedItemWithVatDto>();
+            var outputCollection = new List<CalculatedItemWithVatDto>();
             foreach (var item in model)
             {
                 var vat = _vatRateProvider.GetVatRate(item.Key);
-                output.Add(_calculatedVatItemDtoFactory.Create(item, vat));
+                var calculatedItem = _calculatedVatItemDtoFactory.Create(item, vat);
+                outputCollection.Add(calculatedItem);
             }
 
-            return output;
+            return outputCollection;
 
         }
     }
