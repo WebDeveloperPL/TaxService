@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TaxService.Core\TaxService.Core.csproj" />
+    <ProjectReference Include="..\TaxService.Data\TaxService.Data.csproj" />
+    <ProjectReference Include="..\TaxService.Model.Api\TaxService.Model.Api.csproj" />
+  </ItemGroup>
+
+</Project>
