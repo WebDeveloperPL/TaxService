@@ -4,10 +4,11 @@
 This app is a WebAPI project where you can calculate VAT for collection of items. This project use predefined database with VAT rates, current setup has only few groups, for testing purpose
 
 ## Vat rate groups
-building_service	8%
-books	5%
-newspapers 5%
-
+```
+building_service - 8%
+books - 5%
+newspapers - 5%
+```
 ## Configuration of vat rate groups
 
 If service or good is not in predefined category, it will use default value of VAT which is 23%. 
@@ -18,10 +19,11 @@ Application is build on .Net Core 3.1. There is no user interface, only WebAPI. 
 
 ## First run
 Application should create database automatically after application start. Before running application, setup correct connection string in configuration file.
-
+```
   "ConnectionStrings": {
     "DefaultConnection": "Server=.\\sqlexpress;Database=taxdb;Trusted_Connection=True;"
   },
+  ```
   
 ## implementation 
 - database context is registered as transient, so it's independent on every database action
@@ -32,10 +34,11 @@ Application should create database automatically after application start. Before
 
 
 Please, use following model for testing POST action:
-
+```
 [
 {  "key" : "building_service", "amount" : 1, "singleItemPrice" : 100.89}, 
 {  "key" : "books", "amount" : 10, "singleItemPrice" : 50},
 {  "key" : "newspappers", "amount" : 1, "singleItemPrice" : 100},
 {  "key" : "something_else", "amount" : 1, "singleItemPrice" : 12345}  
 ]
+```
